@@ -22,4 +22,35 @@ Build a simple CLI app in Go that allows a user to save an amount in USDT (a sta
    - Generates and displays a transaction hash as proof.
 6. Return success or failure message to the user.
 
+## API Usage
+
+### Start the API Server
+
+```
+go run cmd/api.go
+```
+
+### Endpoint: POST /api/quote
+
+**Request Body:**
+```json
+{
+  "amount": 100,
+  "wallet": "your_lisk_wallet_address"
+}
+```
+
+**Response Example:**
+```json
+{
+  "outputAmount": 0.77,
+  "message": "Quote retrieved successfully"
+}
+```
+
+- `amount`: Amount in KES (minimum 50)
+- `wallet`: LISK network wallet address
+
+Returns the approximate USDT amount you will receive for the given KES amount on the LISK network.
+
 
