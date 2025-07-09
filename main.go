@@ -95,11 +95,11 @@ func main() {
 	fmt.Printf("You have chosen to save %d KES.\n", amount)
 	// Next: call the API endpoint with the value provided
 	quotePayload := map[string]any{
-		"type": "onramp",
-		"amount": fmt.Sprintf("%d", amount),
-		"fiatCurrency": "KES",
+		"type":           "onramp",
+		"amount":         fmt.Sprintf("%d", amount),
+		"fiatCurrency":   "KES",
 		"cryptoCurrency": "USDT",
-		"network": "lisk",
+		"network":        "lisk",
 	}
 	payloadBytes, err := json.Marshal(quotePayload)
 	if err != nil {
@@ -142,4 +142,20 @@ func main() {
 		fmt.Println("Unexpected quote response format:", string(quoteBody))
 	}
 	// Next: ask user to enter wallet address to agree, advise the network to use is LISK
+	var walletAddress string
+	for {
+		fmt.Print("Enter your wallet address to receive USDT (LISK network): ")
+		_, err := fmt.Scan(&walletAddress)
+		if err != nil || walletAddress == "" {
+			fmt.Println("Wallet address cannot be empty. Please try again.")
+			// Clear input buffer
+			var discard string
+			fmt.Scanln(&discard)
+			continue
+		}
+		break
+	}
+	fmt.Printf("You entered wallet address: %s\n", walletAddress)
+	fmt.Println("Please ensure this address is on the LISK network.")
+	// Next: (future) confirm transaction and proceed
 }
